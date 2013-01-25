@@ -1,0 +1,11 @@
+Sniff your local traffic and download them by extension.
+
+Installation:
+$ cd /tmp && git clone https://github.com/jbittel/httpry.git
+$ cd httpry && make && sudo make install
+$ cd /tmp && git clone https://github.com/gotlium/sltadt.git
+$ cd sltadt && sudo python setup.py install
+
+Usage:
+$ mkdir downloads && cd downloads
+$ sltadt -i eth0 -e '.mp4,.mov,.flv'
