@@ -1,4 +1,15 @@
-Sniff your local traffic and download them by extension.
+Sniff your local http traffic and download them by defined extension.
+
+For what?
+When you looking for video or mp3 on internet, you want download it after.
+And how you can do it? For example you are opening network activity an copy
+link, after you download it and move it to another directory. Or install
+browser-extensions for popular website, for give access to download link.
+It's all horrible and takes a lot of time. So what you can do for comfort?
+You can use this tools and enjoy.
+When you have a mood for download audio or video to the road or to home use,
+run sltadt, define all needed extensions, and be happy:)
+It's very simple and simple to use.
 
 Installation:
 $ cd /tmp && git clone https://github.com/jbittel/httpry.git
@@ -8,4 +19,15 @@ $ cd sltadt && sudo python setup.py install
 
 Usage:
 $ mkdir downloads && cd downloads
-$ sltadt -i eth0 -e '.mp4,.mov,.flv'
+$ sltadt -i eth0 -p 80 -e '..mov,.flv,.mp3,.ogg,.mpeg,.mpg,.mpe,.mpeg,.mpeg,.m1s,.mpa,.mp2,.m2a,.mp2v,.m2v,.m2s,.avi,.qt,.asf,.asx,.wmv,.wma,.wmx,.ram,.rmvb,.mp4,.3gp,.ogm,.mkv'
+
+arguments:
+    -i <interface>
+    -p <port>
+    -e <extension>
+    -r <regexp>
+
+by default:
+    interface = en1
+    ports = 80 and 8080
+    extensions = .flv,.mp4,.mp3

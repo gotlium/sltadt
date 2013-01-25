@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 
@@ -8,13 +7,15 @@ __author__ = 'GoTLiuM InSPiRIT <gotlium@gmail.com>'
 import os
 import sys
 import grab
+import urlparse
 
 
 wget_cmd = "nohup wget -c --connect-timeout=5 --random-wait " \
 	   "--no-check-certificate --retry-connrefused -t 0 " \
 	   "'%(link)s' -O '%(filename)s' >& '%(filename)s.log' &"
 link = sys.argv[1]
-filename = os.path.join(os.getcwd(), os.path.basename(link))
+path = urlparse.urlparse(link).path
+filename = os.path.join(os.getcwd(), os.path.basename(path))
 
 
 def check_length():
