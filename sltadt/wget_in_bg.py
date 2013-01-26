@@ -8,14 +8,30 @@ import os
 import sys
 import grab
 import urlparse
+import argparse
 
 
 wget_cmd = "nohup wget -c --connect-timeout=5 --random-wait " \
 	   "--no-check-certificate --retry-connrefused -t 0 " \
-	   "'%(link)s' -O '%(filename)s' >& '%(filename)s.log' &"
+	   "'%(link)s' -O '%(filename)s' %(agent)s %(referer)s " \
+	   ">& '%(filename)s.log' &"
 link = sys.argv[1]
 path = urlparse.urlparse(link).path
 filename = os.path.join(os.getcwd(), os.path.basename(path))
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-u', '--agent')
+parser.add_argument('-r', '--referer')
+parser.add_argument('url', metavar='N', type=str, nargs='+')
+args = parser.parse_args()
+
+agent = ""
+if args.agent:
+	agent = "--user-agent='%s'" % args.agent
+
+referer = ""
+if args.referer:
+	referer = "--referer='%s'" % args.referer
 
 
 def check_length():

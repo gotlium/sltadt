@@ -12,10 +12,10 @@ import argparse
 import urlparse
 
 
-START_HTTPRY = "sudo httpry -d -i %s -t 1 -f 'host,request-uri' -o '%s' %s " \
+START_HTTPRY = "sudo httpry -d -i %s -t 1 -f 'host,request-uri,user-agent,referer' -o '%s' %s " \
 			   " 2> /dev/null"
 STOP_HTTPRY = 'sudo killall -9 httpry >& /dev/null'
-WGET_BIN = "wget_in_bg '%s'"
+WGET_BIN = "wget_in_bg '%(url)s' -u '%(agent)s' -r '%(referer)s'"
 ALLOWED_EXT = ['.flv', '.mp4', '.mp3']
 VERSION = (1,0)
 
@@ -65,17 +65,22 @@ def run():
 	print "Listening on %s ..." % interface
 	stored = []
 	for line in tailf(open(log)):
+		line = line.strip()
 		if not line:
 			continue
-		line = ''.join(line.strip().split('\t'))
-		path = urlparse.urlparse(line).path
+		line = line.split('\t')
+		if len(line) != 4:
+			continue
+		host, uri, agent, referer = line
+		url = host + uri
+		path = urlparse.urlparse(url).path
 		filename = os.path.basename(path)
 		ext = os.path.splitext(filename)[1].strip()
 		if len(ext) > 2 and ext in allowed_ext:
-			if regexp and not re.match(regexp, line):
+			if regexp and not re.match(regexp, url):
 				continue
-			url = 'http://%s' % line
+			url = 'http://%s' % url
 			if url not in stored:
-				os.system(WGET_BIN % url)
+				os.system(WGET_BIN % locals())
 				stored.append(url)
 				print '> url: %s, ext: %s' % (url, ext)

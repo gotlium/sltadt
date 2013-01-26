@@ -19,7 +19,9 @@ $ cd sltadt && sudo python setup.py install
 
 Usage:
 $ mkdir downloads && cd downloads
-$ sltadt -i eth0 -p 80 -e '..mov,.flv,.mp3,.ogg,.mpeg,.mpg,.mpe,.mpeg,.mpeg,.m1s,.mpa,.mp2,.m2a,.mp2v,.m2v,.m2s,.avi,.qt,.asf,.asx,.wmv,.wma,.wmx,.ram,.rmvb,.mp4,.3gp,.ogm,.mkv'
+$ sltadt -i eth0 -p 80 -e '.mov,.flv,.mp3,.ogg,.mpeg,.mpg,.mpe,.mpeg,.mpeg,\
+    .m1s,.mpa,.mp2,.m2a,.mp2v,.m2v,.m2s,.avi,.qt,.asf,.asx,.wmv,.wma,.wmx,\
+    .ram,.rmvb,.mp4,.3gp,.ogm,.mkv'
 
 arguments:
     -i <interface>
